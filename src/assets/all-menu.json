@@ -1,0 +1,71 @@
+[
+   {
+      "id":1,
+      "title":"Chart of Account",
+      "link":"/ChartAccount",
+      "subMenu":[
+         {
+            "id":1,
+            "title":"Account Head",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":2,
+            "title":"Account Type",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":3,
+            "title":"Account",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":4,
+            "title":"Chart of Account",
+            "link":"/ChartAccount"
+         }
+      ]
+   },
+   {
+      "id":1,
+      "title":"Definition",
+      "link":"/ChartAccount",
+      "subMenu":[
+         {
+            "id":5,
+            "title":"Customer",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":6,
+            "title":"Supplier",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":7,
+            "title":"Employee",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":8,
+            "title":"Area",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":9,
+            "title":"City",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":10,
+            "title":"Country",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":11,
+            "title":"Bank",
+            "link":"/ChartAccount"
+         }
+      ]
+   }
+]

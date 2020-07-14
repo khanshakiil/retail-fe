@@ -1,0 +1,73 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" routerLink="/home">Educator Bookstore</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="navbar-nav">
+      <ul class="navbar-nav mr-auto">
+
+      <a class="nav-item nav-link" routerLink="/home">Home</a>
+
+      <a class="nav-item nav-link" routerLink="/setup">Setup</a>
+      
+      <li class="nav-item dropdown" *ngFor="let menu of menu">
+      
+        <a class="nav-link dropdown-toggle" href="#" id="menu.id" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{menu.title}}
+        </a> 
+        <div class="dropdown-menu" aria-labelledby="item" >
+            <a class="dropdown-item" href="#" *ngFor="let subMenu of menu.subMenu ">{{subMenu.title}}</a>
+          </div>
+      </li>
+
+
+      <!-- 
+
+      
+      <li class="nav-item dropdown" >
+        <a class="nav-link dropdown-toggle" href="#" id="item" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+        >Definition
+        </a>
+        <div class="dropdown-menu" aria-labelledby="item">
+            <a class="dropdown-item" href="#">Customer </a>
+            <a class="dropdown-item" href="#">Supplier</a>
+            <a class="dropdown-item" href="#">Employee</a>
+            <a class="dropdown-item" href="#">Area</a>
+            <a class="dropdown-item" href="#">City</a>
+            <a class="dropdown-item" href="#">Country</a>
+            <a class="dropdown-item" href="#">Bank</a>
+            <a class="dropdown-item" href="#">Designation</a>
+            <a class="dropdown-item" href="#">Employee Type</a>
+          </div>
+      </li>
+
+      <li class="nav-item dropdown" >
+        <a class="nav-link dropdown-toggle" href="#" id="item" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+        >Item
+        </a>
+        <div class="dropdown-menu" aria-labelledby="item">
+            <a class="dropdown-item" href="#">Item Color</a>
+            <a class="dropdown-item" href="#">Item Design</a>
+            <a class="dropdown-item" href="#">Item Category</a>
+            <a class="dropdown-item" href="#">Item Sub Category</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Item</a>
+            <a class="dropdown-item" href="#">Brand</a>
+            <a class="dropdown-item" href="#">UOM</a>
+            <a class="dropdown-item" href="#">Change UOM</a>
+          </div>
+      </li>
+      
+      <a class="nav-item nav-link" routerLink="/">Activity</a>
+
+      <a class="nav-item nav-link" routerLink="/">Account</a>
+
+      <a class="nav-item nav-link" routerLink="/">Reports</a>
+
+      <a class="nav-item nav-link" routerLink="/">Setup</a>
+ -->
+
+      <a class="nav-item nav-link" (click)="logout()">Logout</a>
+     </ul>
+     </div>
+</nav>

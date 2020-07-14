@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AlertService, AuthenticationService } from '../_services';
+import { AlertService, AuthenticationService, MenuBarService } from '../_services';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService
+        private alertService: AlertService,
+        private menuBarService: MenuBarService
     ) {
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) {
@@ -26,7 +27,7 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-    
+    console.log('Login');
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
@@ -55,7 +56,26 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.router.navigate([this.returnUrl]);
+                    this.menuBarService.getUserMenu()
+                    .pipe(first())
+                    .subscribe(menuId => {                  
+                        console.log(menuId);
+                       this.menuBarService.getAllMenu().subscribe(allMenu =>{
+
+                             allMenu.forEach(menu => {
+                                
+                                var selectedSubMenu = menu.subMenu.filter(subMenu =>{
+                                    return menuId.includes(subMenu.id);
+                            });                                
+                                menu.subMenu = selectedSubMenu;
+                                console.log(menu);
+                             });
+                             allMenu = allMenu.filter(menu => menu.subMenu.length>0);                    
+                            console.log(allMenu);
+                            this.menuBarService.setMenu(allMenu);  
+                            this.router.navigate([this.returnUrl]);
+                        }); 
+                    });
                 },
                 error => {
                     this.alertService.error(error);

@@ -3,25 +3,22 @@ import { NgModule, ɵSWITCH_COMPILE_COMPONENT__POST_R3__ } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { ErrorInterceptor } from './_helpers/error.interceptor';
 import { fakeBackendProvider } from './_helpers/fake-backend';
 import { AlertComponent } from './_components';
+import { HomeModule } from './home/home.module';
+import { LoginModule } from './login/login.module';
+import { LayoutModule } from './layout/layout.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    HomeComponent,
-    LoginComponent,
-    RegisterComponent,
     AlertComponent
   ],
   imports: [
@@ -29,6 +26,9 @@ import { AlertComponent } from './_components';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    HomeModule,
+    LoginModule,
+    LayoutModule
  
   ],
   providers: [

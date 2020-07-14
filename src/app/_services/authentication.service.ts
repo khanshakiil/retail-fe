@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { User } from '../_models';
+import { MenuBarService } from '.';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -22,9 +23,11 @@ export class AuthenticationService {
     login(username, password) {
         return this.http.post<any>(`/users/authenticate`, { username, password })
             .pipe(map(user => {
+                console.log(user);
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify(user));
                 this.currentUserSubject.next(user);
+              
                 return user;
             }));
     }

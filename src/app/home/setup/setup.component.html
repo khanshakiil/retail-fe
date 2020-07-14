@@ -1,0 +1,22 @@
+﻿<form [formGroup]="menuForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+
+    <div *ngFor= "let m of menus ;let i = index">
+     <li>  {{m.title}}
+
+                <div *ngFor= "let sm of m.subMenu; let j = index" >
+                    <ul>       <input type="checkbox" value="{{sm.id}}" (change)="onCheckChange($event)"> {{sm?.title}}</ul>
+                </div>
+
+            </li>
+        </div>
+</div>
+
+<div class="form-group">
+        <button  class="btn btn-primary">
+            
+            Submit
+        </button>
+      
+    </div>
+</form>

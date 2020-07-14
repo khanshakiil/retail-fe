@@ -2,12 +2,17 @@
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
+import { Menu } from '../_models/menu';
 
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem('users')) || [];
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
+constructor(){
+    console.log('Fakee');
+}
+
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const { url, method, headers, body } = request;
 
@@ -19,6 +24,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             .pipe(dematerialize());
 
         function handleRoute() {
+            console.log(url);
+            
             switch (true) {
                 case url.endsWith('/users/authenticate') && method === 'POST':
                     return authenticate();
@@ -28,6 +35,14 @@ export class FakeBackendInterceptor implements HttpInterceptor {
                     return getUsers();
                 case url.match(/\/users\/\d+$/) && method === 'DELETE':
                     return deleteUser();
+               
+                case url.endsWith('/getMenu') && method === 'GET':
+                    return getMenu();
+                 case url.endsWith('/saveMenu') && method === 'POST':
+                    return saveMenu(body);
+                   
+               
+
                 default:
                     // pass through any requests not handled above
                     return next.handle(request);
@@ -67,7 +82,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             if (!isLoggedIn()) return unauthorized();
             return ok(users);
         }
-
+        function saveMenu(selectedMenuId:Array<number>) {
+            console.log(selectedMenuId);
+            localStorage.setItem('selectedMenu', JSON.stringify(selectedMenuId)); 
+            return ok();
+        }
         function deleteUser() {
             if (!isLoggedIn()) return unauthorized();
 
@@ -76,6 +95,13 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             return ok();
         }
 
+        function getMenu() {           
+          
+            let selectedMenuIds = JSON.parse(localStorage.getItem('selectedMenu')) || [];
+        //let menu: Array<Menu> = [m1, m2]  
+
+            return ok(selectedMenuIds);
+        }
         // helper functions
 
         function ok(body?) {
