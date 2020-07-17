@@ -3,6 +3,7 @@ import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTT
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import { Menu } from '../_models/menu';
+import { User } from '../_models';
 
 // array in local storage for registered users
 let users = JSON.parse(localStorage.getItem('users')) || [];
@@ -10,7 +11,9 @@ let users = JSON.parse(localStorage.getItem('users')) || [];
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
 constructor(){
-    console.log('Fakee');
+    console.log("FAKEEE");
+    console.log(users);
+   
 }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -52,14 +55,18 @@ constructor(){
         // route functions
 
         function authenticate() {
+            console.log( JSON.stringify(users));
             const { username, password } = body;
-            const user = users.find(x => x.username === username && x.password === password);
+            
+            const user = users.find(x =>
+                x.username === username && x.password === password);
             if (!user) return error('Username or password is incorrect');
             return ok({
                 id: user.id,
                 username: user.username,
                 firstName: user.firstName,
                 lastName: user.lastName,
+                role: user.role,
                 token: 'fake-jwt-token'
             })
         }

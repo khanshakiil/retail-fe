@@ -1,9 +1,9 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { User } from '../../_models';
-import { MenuBarService } from '../../_services';
+import { MenuBarService, AlertService } from '../../_services';
 import { first } from 'rxjs/operators';
-
+import {ToastrService} from 'ngx-toastr'
 
 @Component({ templateUrl: 'setup.component.html' })
 export class SetupComponent implements OnInit {
@@ -13,7 +13,9 @@ export class SetupComponent implements OnInit {
     
 
     constructor(private formBuilder: FormBuilder,
-        private menuBarService: MenuBarService
+        private menuBarService: MenuBarService,
+        private toastrService : ToastrService,
+        private alertService: AlertService
     ) {
         
     }
@@ -40,15 +42,14 @@ export class SetupComponent implements OnInit {
         console.log(this.menuForm.value.menuItem);
 
         this.menuBarService.saveMenu(this.menuForm.value.menuItem)
-            .pipe(first())
-            .subscribe(
-                data => {
-                   console.log(data);
-                },
-                error => {
-                  console.log(error);
-                });
- 
+        .pipe(first())
+        .subscribe(
+            data => {
+              this.alertService.success('Menu updated');
+            },
+            error => {
+              this.toastrService.error(error);
+            });
     }
 
     get ordersFormArray() {

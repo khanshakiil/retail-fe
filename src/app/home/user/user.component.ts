@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { AuthenticationService, UserService, AlertService } from '../../_services';
 
-@Component({ templateUrl: 'register.component.html' })
-export class RegisterComponent implements OnInit {
+@Component({ templateUrl: 'user.component.html' })
+export class UserComponent implements OnInit {
     registerForm: FormGroup;
     loading = false;
     submitted = false;
@@ -17,10 +17,7 @@ export class RegisterComponent implements OnInit {
         private userService: UserService,
         private alertService: AlertService
     ) {
-        // redirect to home if already logged in
-        if (this.authenticationService.currentUserValue) {
-            this.router.navigate(['/']);
-        }
+    
     }
 
     ngOnInit() {
@@ -55,7 +52,7 @@ export class RegisterComponent implements OnInit {
             .subscribe(
                 data => {
                     this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/login']);
+                   // this.router.navigate(['/login']);
                 },
                 error => {
                     this.alertService.error(error);

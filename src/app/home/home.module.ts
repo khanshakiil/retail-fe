@@ -4,9 +4,11 @@ import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home.routing.module';
 import { SetupComponent } from './setup/setup.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UserComponent } from './user/user.component';
 
 @NgModule({
   declarations: [HomeComponent,
+    UserComponent,
   SetupComponent],
   imports: [
     CommonModule,

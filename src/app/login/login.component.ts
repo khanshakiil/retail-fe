@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
+    errorMessage: string;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -56,6 +57,7 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
+                    
                     this.menuBarService.getUserMenu()
                     .pipe(first())
                     .subscribe(menuId => {                  
@@ -78,7 +80,9 @@ export class LoginComponent implements OnInit {
                     });
                 },
                 error => {
-                    this.alertService.error(error);
+                    console.log(error)
+                   // this.alertService.error(error);
+                    this.errorMessage = error;
                     this.loading = false;
                 });
     }

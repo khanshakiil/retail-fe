@@ -13,15 +13,20 @@ import { Menu } from '../../_models/menu';
 })
 export class NavbarComponent  implements OnInit{
 
-  
+  currentUser: User;
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
     private menuBarService : MenuBarService
 ) {
   
-    
+  this.currentUser = this.authenticationService.currentUserValue;
 
+}
+
+
+public get isAdmin(): boolean {
+  return this.currentUser.role === 'ADMIN';
 }
 
 menu : Array<Menu> =[];

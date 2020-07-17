@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, ɵSWITCH_COMPILE_COMPONENT__POST_R3__ } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +15,7 @@ import { AlertComponent } from './_components';
 import { HomeModule } from './home/home.module';
 import { LoginModule } from './login/login.module';
 import { LayoutModule } from './layout/layout.module';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import { LayoutModule } from './layout/layout.module';
     AlertComponent
   ],
   imports: [
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,

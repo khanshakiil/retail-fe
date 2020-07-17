@@ -10,7 +10,7 @@ import { HomeComponent } from '../home/home.component';
 const routes: Routes = [
    { path: '', component: HomeComponent, canActivate: [AuthGuard]},
    { path: 'login', component: LoginComponent },
-   { path: 'register', component: RegisterComponent }
+   { path: 'register', component: RegisterComponent ,canActivate: [AuthGuard]}
   ]
 
 export const LoginRoutingModule = RouterModule.forChild(routes);
