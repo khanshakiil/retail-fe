@@ -14,7 +14,6 @@ export class UserService {
     register(user: User) {
         return this.http.post(`/users/register`, user);
     }
-
     delete(id: number) {
         return this.http.delete(`/users/${id}`);
     }

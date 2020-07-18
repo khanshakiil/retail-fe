@@ -4,13 +4,14 @@ import { User } from '../../_models';
 import { MenuBarService, AlertService } from '../../_services';
 import { first } from 'rxjs/operators';
 import {ToastrService} from 'ngx-toastr'
+import { Menu } from '../../_models/menu';
 
 @Component({ templateUrl: 'setup.component.html' })
 export class SetupComponent implements OnInit {
     currentUser: User;
     menus = [];
     menuForm: FormGroup;
-    
+    selectedMenu : Number[];    
 
     constructor(private formBuilder: FormBuilder,
         private menuBarService: MenuBarService,
@@ -28,20 +29,35 @@ export class SetupComponent implements OnInit {
         this.loadAllMenu();
         
     }
-
-
     private loadAllMenu() {
         this.menuBarService.getAllMenu()
             .pipe()
-            .subscribe(users =>{ this.menus = users ;
-            });
-            
+            .subscribe(menus =>{
+               this.menus = menus ;
+               
+               this.filterMenu();
+               
+            });            
     }
 
-    onSubmit(){
-        console.log(this.menuForm.value.menuItem);
+    filterMenu(){
+            
+      this.selectedMenu =  JSON.parse(localStorage.getItem('selectedMenu'));
+      const formArray: FormArray = this.menuForm.get('menuItem') as FormArray;
+      this.menus.forEach(menu => {
+        var selectedSubMenu = menu.subMenu.forEach(subMenu =>{
+            this.selectedMenu.forEach(selectedmenu => {
+                         if(subMenu.id == selectedmenu){   
+                            (this.menuForm.controls.menuItem as FormArray)
+                                  .push(new FormControl(selectedmenu));
+                         }
+            });
+           });
+        });
+  }
 
-        this.menuBarService.saveMenu(this.menuForm.value.menuItem)
+    onSubmit(){
+         this.menuBarService.saveMenu(this.menuForm.value.menuItem)
         .pipe(first())
         .subscribe(
             data => {
@@ -62,7 +78,6 @@ export class SetupComponent implements OnInit {
 
       
 onCheckChange(event) {
-    console.log(event);
     const formArray: FormArray = this.menuForm.get('menuItem') as FormArray;
   
     /* Selected */

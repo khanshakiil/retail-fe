@@ -23,8 +23,6 @@ export class NavbarComponent  implements OnInit{
   this.currentUser = this.authenticationService.currentUserValue;
 
 }
-
-
 public get isAdmin(): boolean {
   return this.currentUser.role === 'ADMIN';
 }
@@ -32,17 +30,11 @@ public get isAdmin(): boolean {
 menu : Array<Menu> =[];
 
 ngOnInit(){
-console.log('Menuuuuuuuuuuuuuuuuuu');
   this.menu =  this.menuBarService.getMenu() ;
-  console.log(this.menu);
-
-
-  // 
 }
 
 logout() {
   this.authenticationService.logout();
   this.router.navigate(['/login']);
 }
-
 }

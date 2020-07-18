@@ -17,18 +17,21 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-       // this.loadAllUsers();
+         this.loadAllUsers();
     }
-
     deleteUser(id: number) {
         this.userService.delete(id)
             .pipe(first())
             .subscribe(() => this.loadAllUsers());
+    
     }
-
     private loadAllUsers() {
         this.userService.getAll()
             .pipe(first())
             .subscribe(users => this.users = users);
     }
+
+    public get isAdmin(): boolean {
+        return this.currentUser.role === 'ADMIN';
+      }
 }

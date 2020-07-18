@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
 import { AlertService, AuthenticationService, MenuBarService } from '../_services';
+import { Menu } from '../_models/menu';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
@@ -28,7 +29,6 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-    console.log('Login');
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required]
@@ -57,27 +57,7 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    
-                    this.menuBarService.getUserMenu()
-                    .pipe(first())
-                    .subscribe(menuId => {                  
-                        console.log(menuId);
-                       this.menuBarService.getAllMenu().subscribe(allMenu =>{
-
-                             allMenu.forEach(menu => {
-                                
-                                var selectedSubMenu = menu.subMenu.filter(subMenu =>{
-                                    return menuId.includes(subMenu.id);
-                            });                                
-                                menu.subMenu = selectedSubMenu;
-                                console.log(menu);
-                             });
-                             allMenu = allMenu.filter(menu => menu.subMenu.length>0);                    
-                            console.log(allMenu);
-                            this.menuBarService.setMenu(allMenu);  
-                            this.router.navigate([this.returnUrl]);
-                        }); 
-                    });
+                   this.prepareMenu();                   
                 },
                 error => {
                     console.log(error)
@@ -86,4 +66,32 @@ export class LoginComponent implements OnInit {
                     this.loading = false;
                 });
     }
+
+    prepareMenu(){
+        this.menuBarService.getUserMenu()
+        .pipe(first())
+        .subscribe(userMenuIds => {                  
+           this.menuBarService.getAllMenu().subscribe(allMenu =>{
+           
+                 this.menuBarService.setMenu( this.filterMenu(userMenuIds, allMenu));  
+                
+                this.router.navigate([this.returnUrl]);
+            }); 
+        });
+    }
+
+    filterMenu(menuId, allMenu): Menu[]{
+        allMenu.forEach(menu => {
+                                
+            var selectedSubMenu = menu.subMenu.filter(subMenu =>{
+                return menuId.includes(subMenu.id);
+        });                                
+            menu.subMenu = selectedSubMenu;
+         });
+         allMenu = allMenu.filter(menu => menu.subMenu.length>0);                    
+        
+        
+       return allMenu;
+    }
+
 }

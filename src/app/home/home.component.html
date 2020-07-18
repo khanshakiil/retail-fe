@@ -1,2 +1,12 @@
-﻿<h1>Hi {{currentUser.firstName}}!</h1>
-<p>You're logged in with Angular 10!!</p>
+﻿<div class="container">
+<h1>Hi {{currentUser.firstName}}!</h1>
+<div *ngIf="isAdmin">
+<h3>All registered users:</h3>
+<ul >
+        <li *ngFor="let user of users">
+            {{user.username}} ({{user.firstName}} {{user.lastName}})
+            - <a (click)="deleteUser(user.id)" class="text-danger" *ngIf="user.username != currentUser.username">Delete</a>
+        </li>
+    </ul>
+</div>
+</div>

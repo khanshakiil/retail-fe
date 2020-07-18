@@ -17,7 +17,7 @@
         <a class="nav-link dropdown-toggle" href="#" id="menu.id" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{menu.title}}
         </a> 
         <div class="dropdown-menu" aria-labelledby="item" >
-            <a class="dropdown-item" href="#" *ngFor="let subMenu of menu.subMenu ">{{subMenu.title}}</a>
+            <a class="dropdown-item" routerLink="" *ngFor="let subMenu of menu.subMenu ">{{subMenu.title}}</a>
           </div>
       </li>
 

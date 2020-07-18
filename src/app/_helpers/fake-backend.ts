@@ -5,14 +5,10 @@ import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
 import { Menu } from '../_models/menu';
 import { User } from '../_models';
 
-// array in local storage for registered users
-let users = JSON.parse(localStorage.getItem('users')) || [];
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
 constructor(){
-    console.log("FAKEEE");
-    console.log(users);
    
 }
 
@@ -27,15 +23,14 @@ constructor(){
             .pipe(dematerialize());
 
         function handleRoute() {
-            console.log(url);
-            
+                    
             switch (true) {
                 case url.endsWith('/users/authenticate') && method === 'POST':
                     return authenticate();
                 case url.endsWith('/users/register') && method === 'POST':
                     return register();
                 case url.endsWith('/users') && method === 'GET':
-                    return getUsers();
+                    return getUsers();  
                 case url.match(/\/users\/\d+$/) && method === 'DELETE':
                     return deleteUser();
                
@@ -43,8 +38,6 @@ constructor(){
                     return getMenu();
                  case url.endsWith('/saveMenu') && method === 'POST':
                     return saveMenu(body);
-                   
-               
 
                 default:
                     // pass through any requests not handled above
@@ -55,7 +48,11 @@ constructor(){
         // route functions
 
         function authenticate() {
-            console.log( JSON.stringify(users));
+                        
+            // array in local storage for registered users
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
+            
             const { username, password } = body;
             
             const user = users.find(x =>
@@ -74,6 +71,9 @@ constructor(){
         function register() {
             const user = body
 
+            // array in local storage for registered users
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
             if (users.find(x => x.username === user.username)) {
                 return error('Username "' + user.username + '" is already taken')
             }
@@ -86,22 +86,26 @@ constructor(){
         }
 
         function getUsers() {
+            
+            // array in local storage for registered users
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+
             if (!isLoggedIn()) return unauthorized();
             return ok(users);
         }
         function saveMenu(selectedMenuId:Array<number>) {
-            console.log(selectedMenuId);
+            
             localStorage.setItem('selectedMenu', JSON.stringify(selectedMenuId)); 
             return ok();
         }
         function deleteUser() {
             if (!isLoggedIn()) return unauthorized();
 
+            let users = JSON.parse(localStorage.getItem('users')) || [];
             users = users.filter(x => x.id !== idFromUrl());
             localStorage.setItem('users', JSON.stringify(users));
             return ok();
         }
-
         function getMenu() {           
           
             let selectedMenuIds = JSON.parse(localStorage.getItem('selectedMenu')) || [];

@@ -27,7 +27,7 @@
       ]
    },
    {
-      "id":1,
+      "id":101,
       "title":"Definition",
       "link":"/ChartAccount",
       "subMenu":[
@@ -65,7 +65,100 @@
             "id":11,
             "title":"Bank",
             "link":"/ChartAccount"
+         },
+         {
+            "id":12,
+            "title":"Designation",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":13,
+            "title":"Employee Type",
+            "link":"/ChartAccount"
          }
       ]
-   }
+   },
+   {
+      "id":201,
+      "title":"Item",
+      "link":"/ChartAccount",
+      "subMenu":[
+         {
+            "id":14,
+            "title":"Item Color",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":15,
+            "title":"Item Design",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":16,
+            "title":"Item Category",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":17,
+            "title":"Item Sub Category",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":18,
+            "title":"Item",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":19,
+            "title":"Brand",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":20,
+            "title":"UOM",
+            "link":"/ChartAccount"
+         },
+         {
+            "id":21,
+            "title":"Change UOM",
+            "link":"/ChartAccount"
+         }
+      ]
+   },
+   {
+      "id":301,
+      "title":"Activity",
+      "link":"/ChartAccount",
+      "subMenu":[
+         {
+            "id":22,
+            "title":"Activity",
+            "link":"/ChartAccount"
+         }
+      ]
+   } ,
+   {
+      "id":401,
+      "title":"Accounts",
+      "link":"/ChartAccount",
+      "subMenu":[
+         {
+            "id":23,
+            "title":"Accounts",
+            "link":"/ChartAccount"
+         }
+      ]
+   }  ,
+   {
+      "id":501,
+      "title":"Reports",
+      "link":"/ChartAccount",
+      "subMenu":[
+         {
+            "id":24,
+            "title":"Reports",
+            "link":"/ChartAccount"
+         }
+      ]
+   }  
 ]
