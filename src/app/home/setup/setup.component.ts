@@ -33,6 +33,7 @@ export class SetupComponent implements OnInit {
         this.menuBarService.getAllMenu()
             .pipe()
             .subscribe(menus =>{
+              
                this.menus = menus ;
                
                this.filterMenu();
@@ -43,9 +44,15 @@ export class SetupComponent implements OnInit {
     filterMenu(){
             
       this.selectedMenu =  JSON.parse(localStorage.getItem('selectedMenu'));
+      if(!this.selectedMenu){
+        this.selectedMenu = [];
+        return;
+      }
+
       const formArray: FormArray = this.menuForm.get('menuItem') as FormArray;
+      
       this.menus.forEach(menu => {
-        var selectedSubMenu = menu.subMenu.forEach(subMenu =>{
+        menu.subMenu.forEach(subMenu =>{
             this.selectedMenu.forEach(selectedmenu => {
                          if(subMenu.id == selectedmenu){   
                             (this.menuForm.controls.menuItem as FormArray)
